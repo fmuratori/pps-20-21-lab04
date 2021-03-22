@@ -1,23 +1,23 @@
 package u04lab.code
 
-trait Complex {
+trait Complex2 {
   def re: Double
   def im: Double
-  def +(c: Complex): Complex // should implement the sum of two complex numbers..
-  def *(c: Complex): Complex // should implement the product of two complex numbers
+  def +(c: Complex2): Complex2 // should implement the sum of two complex numbers..
+  def *(c: Complex2): Complex2 // should implement the product of two complex numbers
 }
-case class ComplexImpl(re: Double, im:Double) extends Complex {
-  override def +(c: Complex): Complex = new ComplexImpl(this.re + c.re, this.im + c.im)
+case class ComplexImpl(re: Double, im:Double) extends Complex2 {
+  override def +(c: Complex2): Complex2 = new ComplexImpl(this.re + c.re, this.im + c.im)
 
-  override def *(c: Complex): Complex = new ComplexImpl(this.re * c.re, this.im * c.im)
-}
-
-object Complex {
-  def apply(re:Double, im:Double):Complex = ComplexImpl(re, im)
+  override def *(c: Complex2): Complex2 = new ComplexImpl(this.re * c.re, this.im * c.im)
 }
 
-object TryComplex extends App {
-  val a = Array(Complex(10,20), Complex(1,1), Complex(7,0))
+object Complex2 {
+  def apply(re:Double, im:Double):Complex2 = ComplexImpl(re, im)
+}
+
+object TryComplex2 extends App {
+  val a = Array(Complex2(10,20), Complex2(1,1), Complex2(7,0))
   val c = a(0) + a(1) + a(2)
   println(c, c.re, c.im) // (ComplexImpl(18.0,21.0),18.0,21.0)
   val c2 = a(0) * a(1)
