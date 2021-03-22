@@ -1,21 +1,19 @@
 package u04lab.code
 
-trait Complex {
+sealed trait Complex {
   def re: Double
   def im: Double
   def +(c: Complex): Complex // should implement the sum of two complex numbers..
   def *(c: Complex): Complex // should implement the product of two complex numbers
 }
+case class ComplexImpl(re: Double, im:Double) extends Complex {
+  override def +(c: Complex): Complex = new ComplexImpl(this.re + c.re, this.im + c.im)
+
+  override def *(c: Complex): Complex = new ComplexImpl(this.re * c.re, this.im * c.im)
+}
 
 object Complex {
-  def apply(re:Double, im:Double):Complex = new ComplexImpl(re, im)
-
-  private class ComplexImpl(override val re:Double, override val im:Double)
-    extends Complex {
-
-    def +(c: Complex): Complex = new ComplexImpl(this.re + c.re, this.im + c.im)
-    def *(c: Complex): Complex = new ComplexImpl(this.re * c.re, this.im * c.im)
-  }
+  def apply(re:Double, im:Double):Complex = ComplexImpl(re, im)
 }
 
 object TryComplex extends App {
