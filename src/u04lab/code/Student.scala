@@ -18,10 +18,7 @@ case class StudentImpl(sName:String, sYear: Int) extends Student {
   override def year: Int = year
   override def enrolling(course: Course): Unit = sCourses = List.append(sCourses, Cons(course, Nil()))
   override def courses: List[String] = List.map(sCourses)(course => course.name)
-  override def hasTeacher(teacher: String): Boolean = List.filter(List.map(sCourses)(course => course.teacher))(cTeacher => cTeacher == teacher) match {
-    case Cons(t, _) => true
-    case _ => false
-  }
+  override def hasTeacher(teacher: String): Boolean = List.contains(List.map(sCourses)(course => course.teacher))(teacher)
 }
 
 trait Course {
