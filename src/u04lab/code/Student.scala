@@ -2,6 +2,7 @@ package u04lab.code
 
 import Lists._
 import u04lab.code.Lists.List.Cons // import custom List type (not the one in Scala stdlib)
+import u04lab.code.Lists.List.Nil // import custom List type (not the one in Scala stdlib)
 
 trait Student {
   def name: String
@@ -10,18 +11,34 @@ trait Student {
   def courses: List[String] // names of course the student participates to
   def hasTeacher(teacher: String): Boolean // is the student participating to a course of this teacher?
 }
+case class StudentImpl(sName:String, sYear: Int) extends Student {
+  var sCourses: List[Course] = Nil()
+
+  override def name: String = sName
+  override def year: Int = year
+  override def enrolling(course: Course): Unit = sCourses = List.append(sCourses, Cons(course, Nil()))
+  override def courses: List[String] = List.map(sCourses)(course => course.name)
+  override def hasTeacher(teacher: String): Boolean = List.filter(List.map(sCourses)(course => course.teacher))(cTeacher => cTeacher == teacher) match {
+    case Cons(t, _) => true
+    case _ => false
+  }
+}
 
 trait Course {
   def name: String
   def teacher: String
 }
+case class CourseImpl(cName:String, cTeacher:String) extends Course {
+  override def name: String = cName
+  override def teacher: String = cTeacher
+}
 
 object Student {
-  def apply(name: String, year: Int = 2017): Student = ???
+  def apply(name: String, year: Int = 2017): Student = StudentImpl(name, year)
 }
 
 object Course {
-  def apply(name: String, teacher: String): Course = ???
+  def apply(name: String, teacher: String): Course = CourseImpl(name, teacher)
 }
 
 object Try extends App {
