@@ -1,6 +1,6 @@
 package u04lab.code
 
-sealed trait Complex {
+trait Complex {
   def re: Double
   def im: Double
   def +(c: Complex): Complex // should implement the sum of two complex numbers..
